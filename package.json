@@ -1,0 +1,48 @@
+{
+  "name": "lexpact-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server exposing the LexPact contract generation API (generate_contract, get_contract, list_contract_templates) to Claude Desktop and other MCP clients.",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "lexpact-mcp-server": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.4.3"
+  },
+  "mcpName": "io.github.Idadabhai/lexpact",
+  "homepage": "https://lexpact.co.uk/developers",
+  "author": {
+    "name": "LexPact",
+    "email": "hello@lexpact.co.uk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Idadabhai/lexpact-mcp-server.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "contracts",
+    "legal",
+    "uk",
+    "nda",
+    "ir35",
+    "freelance",
+    "recruitment",
+    "lexpact"
+  ],
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
