@@ -9,7 +9,19 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { z } from 'zod';
 
 const API_KEY = process.env.LEXPACT_API_KEY;
-const BASE_URL = process.env.LEXPACT_API_BASE_URL || 'https://lexpact.co.uk/api/v1';
+const DEFAULT_BASE_URL = 'https://lexpact.co.uk/api/v1';
+// An override must be an absolute http(s) URL. Some hosts pre-fill optional
+// env fields with junk, so anything else falls back to the default instead of
+// producing requests like "list_contract_templates/templates".
+let BASE_URL = DEFAULT_BASE_URL;
+const baseOverride = (process.env.LEXPACT_API_BASE_URL || '').trim();
+if (baseOverride) {
+  if (/^https?:\/\/[^\s]+$/i.test(baseOverride)) {
+    BASE_URL = baseOverride.replace(/\/+$/, '');
+  } else {
+    console.error(`Ignoring LEXPACT_API_BASE_URL (not an http(s) URL); using ${DEFAULT_BASE_URL}`);
+  }
+}
 
 if (!API_KEY) {
   console.error('LEXPACT_API_KEY is not set. Get a key at https://lexpact.co.uk/dashboard/api-keys and set it in your MCP client config.');
@@ -33,7 +45,7 @@ function textResult(data, isError = false) {
   return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }], isError };
 }
 
-const server = new McpServer({ name: 'lexpact', version: '1.0.0' });
+const server = new McpServer({ name: 'lexpact', version: '1.0.1' });
 
 server.registerTool(
   'list_contract_templates',
