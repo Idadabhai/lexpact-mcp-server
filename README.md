@@ -1,5 +1,7 @@
 # LexPact MCP Server
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/idadabhai-lexpact-mcp-server-tdg2e3?v=8d650c7c66eb5560116aee9259ca64fc)](https://m8ven.ai/mcp/idadabhai-lexpact-mcp-server-tdg2e3?s=readme)
+
 Exposes the [LexPact](https://lexpact.co.uk) contract generation API to Claude Desktop
 (or any MCP client) as three tools: `list_contract_templates`, `generate_contract`,
 `get_contract`. Thin proxy only — all validation and generation happens server-side
