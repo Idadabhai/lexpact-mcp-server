@@ -1,6 +1,6 @@
 {
   "name": "lexpact-mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP server exposing the LexPact contract generation API (generate_contract, get_contract, list_contract_templates) to Claude Desktop and other MCP clients.",
   "main": "index.js",
   "type": "module",

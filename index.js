@@ -45,7 +45,7 @@ function textResult(data, isError = false) {
   return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }], isError };
 }
 
-const server = new McpServer({ name: 'lexpact', version: '1.0.1' });
+const server = new McpServer({ name: 'lexpact', version: '1.0.2' });
 
 server.registerTool(
   'list_contract_templates',
@@ -53,6 +53,7 @@ server.registerTool(
     title: 'List LexPact contract templates',
     description: "List the 5 contract types LexPact can generate, their required/optional fields, and party role labels. Call this first if you don't already know the field requirements for a contract_type.",
     inputSchema: {},
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   },
   async () => {
     const { body } = await callApi('/templates', { method: 'GET' });
@@ -64,6 +65,7 @@ server.registerTool(
   'generate_contract',
   {
     title: 'Generate a contract',
+    annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false },
     description: 'Generate a UK jurisdiction-aware contract (nda, service_agreement, freelance_agreement, recruiter_terms_of_business, or ir35_agreement). Collect all required fields through conversation before calling — never invent party names, addresses, dates, or amounts. On a validation error, read error.suggestion in the response and fix the request yourself.',
     inputSchema: {
       contract_type: z
@@ -156,6 +158,7 @@ server.registerTool(
   {
     title: 'Get a previously generated contract',
     description: 'Retrieve a contract by id. Returns status "processing" while generation is still running (call again in about 30 seconds) and "completed" with the contract once done. content_markdown is always populated regardless of the original output_format — PDF URLs are only returned once, inline, by generate_contract.',
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     inputSchema: {
       id: z.string().describe('The contract id returned by generate_contract.'),
     },
